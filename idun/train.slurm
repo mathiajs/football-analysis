@@ -19,16 +19,16 @@ echo "========================================="
 
 module purge
 module load Anaconda3/2023.09-0
-module load intel/2023b            # Provides libittnotify (iJIT_NotifyEvent) needed by PyTorch+MKL
 conda activate /cluster/home/$USER/envs/yolo
 
-# Fix: PyTorch needs libittnotify.so on LD_PRELOAD for iJIT_NotifyEvent symbol
-ITTNOTIFY=$(find "$EBROOTINTEL" -name "libittnotify.so" 2>/dev/null | head -1)
+# Fix: PyTorch+MKL needs iJIT_NotifyEvent from libittnotify.so
+# Provided by intel-openmp pip package (run: pip install intel-openmp)
+ITTNOTIFY=$(find "$CONDA_PREFIX" -name "libittnotify.so" 2>/dev/null | head -1)
 if [ -n "$ITTNOTIFY" ]; then
     export LD_PRELOAD="$ITTNOTIFY"
     echo "Preloaded: $ITTNOTIFY"
 else
-    echo "WARNING: libittnotify.so not found under \$EBROOTINTEL"
+    echo "WARNING: libittnotify.so not found — run: pip install intel-openmp"
 fi
 
 # Step 1: Prepare dataset (copies images + filters labels into YOLO format)
