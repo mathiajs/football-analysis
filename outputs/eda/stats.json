@@ -1,0 +1,69 @@
+{
+  "dataset": {
+    "num_matches": 7,
+    "match_names": [
+      "RBK-AALESUND",
+      "RBK-BODO/part1",
+      "RBK-BODO/part2",
+      "RBK-BODO/part3",
+      "RBK-FREDRIKSTAD",
+      "RBK-HamKam",
+      "RBK-VIKING"
+    ],
+    "image_resolution": "1920x1080",
+    "images": 11168,
+    "labels": 11165,
+    "annotations": 261226
+  },
+  "class_distribution": {
+    "player": 251212,
+    "ball": 9943,
+    "event": 71
+  },
+  "class_percentages": {
+    "player": 96.17,
+    "ball": 3.81,
+    "event": 0.03
+  },
+  "bbox_sizes": {
+    "player": {
+      "count": 251212,
+      "width_mean": 30.5,
+      "width_median": 28.0,
+      "width_std": 11.3,
+      "height_mean": 65.2,
+      "height_median": 63.0,
+      "height_std": 18.7
+    },
+    "ball": {
+      "count": 9943,
+      "width_mean": 11.8,
+      "width_median": 11.0,
+      "width_std": 3.6,
+      "height_mean": 11.3,
+      "height_median": 11.0,
+      "height_std": 2.8
+    },
+    "event": {
+      "count": 71,
+      "width_mean": 32.8,
+      "width_median": 23.9,
+      "width_std": 24.8,
+      "height_mean": 35.4,
+      "height_median": 23.2,
+      "height_std": 26.7
+    }
+  },
+  "objects_per_image": {
+    "mean": 23.4,
+    "median": 23.0,
+    "std": 0.8,
+    "min": 15,
+    "max": 26
+  },
+  "ball_visibility": {
+    "total_images": 11165,
+    "images_with_ball": 9943,
+    "ball_visibility_pct": 89.1
+  }
+}
