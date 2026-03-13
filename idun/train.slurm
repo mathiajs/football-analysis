@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --partition=GPUQ
-#SBATCH --account=ie-idi              # Change to your actual account
+#SBATCH --account=share-ie-idi              # Change to your actual account
 #SBATCH --time=0-08:00:00             # 8 hours (YOLOv8x at 1280 takes ~6-7h for 100 epochs)
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -19,6 +19,7 @@ echo "========================================="
 
 module purge
 module load Anaconda3/2023.09-0
+module load intel/2023b            # Provides libittnotify (iJIT_NotifyEvent) needed by PyTorch+MKL
 conda activate /cluster/home/$USER/envs/yolo
 
 # Step 1: Prepare dataset (copies images + filters labels into YOLO format)
