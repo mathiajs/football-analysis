@@ -1,0 +1,33 @@
+# Phase 3: Improved training from scratch
+# YOLOv8m on both classes with strong augmentation tuned for ball detection.
+# Key fix: explicit optimizer so lr0 is actually respected.
+
+model: yolov8m.pt
+data: data/yolo_dataset/data.yaml
+
+# Training
+epochs: 100
+imgsz: 1280
+batch: 4
+patience: 25
+
+# Optimization — explicit AdamW so lr0 is NOT overridden by auto
+optimizer: AdamW
+lr0: 0.001
+lrf: 0.01
+warmup_epochs: 5
+weight_decay: 0.0005
+
+# Augmentation — tuned for ball detection
+mosaic: 0.5                # reduced from 1.0 — full mosaic shrinks tiny ball by 4x
+mixup: 0.0
+copy_paste: 0.0         # requires segmentation masks (not available in our bbox-only dataset)
+scale: 0.7              # wider scale range helps with tiny ball
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0            # no rotation (football has strong orientation cues)
+translate: 0.1
+fliplr: 0.5
+flipud: 0.0             # no vertical flip (gravity)
+close_mosaic: 15         # disable mosaic for last 15 epochs for cleaner convergence
