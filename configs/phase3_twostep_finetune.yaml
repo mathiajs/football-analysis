@@ -1,0 +1,33 @@
+# Phase 3 Two-Step: Step 2 — Fine-tune on both classes
+# Starts from ball-only best weights, adds players without forgetting ball.
+# Key: lower LR + no mosaic to preserve ball detection ability.
+
+# model: set by script (points to step 1 best.pt)
+# data: set by script
+
+# Training — YOLOv8x converges fast
+epochs: 20
+imgsz: 1280
+batch: 8            # A100 can handle batch=8 with 1280px
+patience: 10
+
+# Optimization — lower LR to avoid overwriting ball weights!
+optimizer: AdamW
+lr0: 0.0005         # half of step 1 — critical to preserve ball features
+lrf: 0.01
+cos_lr: true
+warmup_epochs: 2    # shorter warmup when fine-tuning
+weight_decay: 0.0005
+
+# Augmentation — NO mosaic during fine-tuning (preserves ball features)
+mosaic: 0.0
+mixup: 0.0
+scale: 0.5
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0
+translate: 0.1
+fliplr: 0.5
+flipud: 0.0
+close_mosaic: 0

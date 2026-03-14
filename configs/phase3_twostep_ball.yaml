@@ -1,0 +1,36 @@
+# Phase 3 Two-Step: Step 1 — Ball-only training
+# Teaches YOLOv8x to detect the tiny ball before adding players.
+# Inspired by reference solution's approach.
+
+model: yolov8x.pt
+# data: set by script
+
+# Training — YOLOv8x converges fast (peaked at epoch ~16-20 in Exp 3)
+epochs: 20
+imgsz: 1280
+batch: 8            # A100 40GB handles batch=8 at 1280px
+patience: 10
+
+# Optimization — explicit AdamW so lr0 is respected (NOT auto!)
+optimizer: AdamW
+lr0: 0.001
+lrf: 0.01
+cos_lr: true        # cosine decay — gentler schedule
+warmup_epochs: 5
+weight_decay: 0.0005
+
+# Augmentation — heavy mosaic to see more ball examples per batch
+mosaic: 1.0
+mixup: 0.0
+scale: 0.5
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 0.0
+translate: 0.1
+fliplr: 0.5
+flipud: 0.0
+close_mosaic: 10
+
+# Only train on ball (class 1 in our dataset)
+classes: [1]
