@@ -46,7 +46,7 @@ def train_step(model: YOLO, config: dict, name: str, project: str) -> str:
 
     start_time = time.time()
 
-    model.train(
+    results = model.train(
         data=config["data"],
         epochs=epochs,
         imgsz=imgsz,
@@ -62,7 +62,8 @@ def train_step(model: YOLO, config: dict, name: str, project: str) -> str:
     )
 
     elapsed_hours = (time.time() - start_time) / 3600
-    best_path = f"{project}/{name}/weights/best.pt"
+    # Use the actual save directory from training results
+    best_path = str(model.trainer.best)
     print(f"\nStep complete: {name}")
     print(f"  GPU-hours: {elapsed_hours:.2f}")
     print(f"  Best weights: {best_path}")
